@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+import { ClearEffect } from "./clearEffect";
+
 export function Effect() {
   console.log("Effect component rendered");
 
@@ -19,6 +21,8 @@ export function Effect() {
       });
   }, []);
 
+  const [show, setShow] = useState(true);
+
   return (
     <main className="flex items-center justify-center flex-col pt-16 pb-4 bg-blue-300">
       {Array.isArray(data) ? (
@@ -32,6 +36,11 @@ export function Effect() {
       ) : (
         <p>Loading...</p>
       )}
+      <br />
+      <div>
+        <button onClick={() => setShow(!show)}>切換顯示</button>
+        {show && <ClearEffect />}
+      </div>
     </main>
   );
 }
