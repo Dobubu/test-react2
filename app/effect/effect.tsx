@@ -2,25 +2,20 @@ import { useState, useEffect } from "react";
 
 import { ClearEffect } from "./clearEffect";
 import { ModalDialog } from "./modalDialog";
+import { useFetchData } from "./useFetchData";
 
 export function Effect() {
   console.log("Effect component rendered");
 
-  const [data, setData] = useState(null);
+  const { data, loading } = useFetchData({
+    apiUrl: "https://reqres.in/api/users?page=2",
+  });
 
   useEffect(() => {
-    fetch("https://reqres.in/api/users?page=2", {
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": "reqres-free-v1",
-      },
-      cache: "no-cache",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.data);
-      });
-  }, []);
+    if (data && !loading) {
+      console.log("data: ", data);
+    }
+  }, [data, loading]);
 
   const [show, setShow] = useState(true);
 
