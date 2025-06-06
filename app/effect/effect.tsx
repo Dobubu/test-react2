@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { ClearEffect } from "./clearEffect";
-import { ModalDialog } from "./modalDialog";
+import { ModalComponent } from "./modalComponent";
 import { useFetchData } from "./useFetchData";
 
 export function Effect() {
@@ -18,8 +18,6 @@ export function Effect() {
   }, [data, loading]);
 
   const [show, setShow] = useState(true);
-
-  const [showDialog, setShowDialog] = useState(false);
 
   return (
     <main className="flex items-center justify-center flex-col pt-16 pb-4 bg-blue-300">
@@ -39,18 +37,7 @@ export function Effect() {
         <button onClick={() => setShow(!show)}>切換顯示</button>
         {show && <ClearEffect />}
       </div>
-      <button onClick={() => setShowDialog(true)}>Open dialog</button>
-      <ModalDialog isOpen={showDialog}>
-        Hello there!
-        <br />
-        <button
-          onClick={() => {
-            setShowDialog(false);
-          }}
-        >
-          Close
-        </button>
-      </ModalDialog>
+      <ModalComponent />
     </main>
   );
 }
