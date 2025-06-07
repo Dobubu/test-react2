@@ -4,4 +4,5 @@ export default [
   index("routes/home.tsx"),
   route("state", "routes/state.tsx"),
   route("effect", "routes/effect.tsx"),
+  route("context", "routes/context.tsx"),
 ] satisfies RouteConfig;
