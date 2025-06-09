@@ -5,4 +5,5 @@ export default [
   route("state", "routes/state.tsx"),
   route("effect", "routes/effect.tsx"),
   route("context", "routes/context.tsx"),
+  route("ref", "routes/ref.tsx"),
 ] satisfies RouteConfig;
