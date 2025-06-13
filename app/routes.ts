@@ -6,4 +6,5 @@ export default [
   route("effect", "routes/effect.tsx"),
   route("context", "routes/context.tsx"),
   route("ref", "routes/ref.tsx"),
+  route("compareHook", "routes/compareHook.tsx"),
 ] satisfies RouteConfig;
