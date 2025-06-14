@@ -39,15 +39,20 @@ export function RefStateEffect() {
     console.log("【空依賴數組】只在首次渲染後執行，count =", count);
     // 這裡的 count 永遠是初始值(0)，因為此 effect 只在首次渲染後執行一次
 
+    // 嚴格模式下，這個effect會執行兩次，這有助於測試清理函數是否正確
     const id = setInterval(() => {
-      // 雖然這個函數是首次渲染時創建的
-      // 這裡的 count 始終是初始值(0)，因為它被閉包捕獲了
-      // 而 latestCount.current 是最新的，因為它是可變的引用
+      // 閉包陷阱示例：即使count更新，這裡仍然是初始值
+      // 嚴格模式幫助我們意識到這個問題
       console.log(
         `定時器: latestCount.current = ${latestCount.current}, count = ${count}`
       );
     }, 3000);
-    return () => clearInterval(id);
+
+    // 嚴格模式會調用這個清理函數，測試它是否正確工作
+    return () => {
+      console.log("清理定時器");
+      clearInterval(id);
+    };
   }, []);
 
   console.log("--- 渲染中 ---");
@@ -57,10 +62,40 @@ export function RefStateEffect() {
   renderCountRef.current += 1;
   console.log(`這是第 ${renderCountRef.current} 次渲染`);
 
+  // 檢測是否在嚴格模式下
+  const isStrictMode = renderCountRef.current === 2 && count === 0;
+
   return (
     <div>
       <h3>useRef 與 useState 對比示例</h3>
       <h3>useEffect 依賴數組示例 (第 {renderCountRef.current} 次渲染)</h3>
+      {isStrictMode && (
+        <div
+          style={{
+            padding: "10px",
+            marginBottom: "10px",
+            border: "1px solid #ffd700",
+          }}
+        >
+          <h4
+            style={{
+              margin: "0 0 10px 0",
+              color: "#d4500",
+            }}
+          >
+            React 嚴格模式學習提示
+          </h4>
+          <p>這是 React 嚴格模式下的額外渲染。嚴格模式的幫助：</p>
+          <ul>
+            <li>發現不純的渲染邏輯和意外的副作用</li>
+            <li>測試 Effect 清理函數是否正確</li>
+            <li>幫助理解閉包陷阱問題</li>
+          </ul>
+          <p style={{ marginBottom: 0 }}>
+            嚴格模式僅在開發環境中生效，生產環境不會有多餘渲染
+          </p>
+        </div>
+      )}
       <p>當前 count (useState): {count}</p>
       <p>latestCount.current (useRef): {latestCount.current}</p>
       <button
