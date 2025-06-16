@@ -7,4 +7,5 @@ export default [
   route("context", "routes/context.tsx"),
   route("ref", "routes/ref.tsx"),
   route("compareHook", "routes/compareHook.tsx"),
+  route("memo", "routes/memo.tsx"),
 ] satisfies RouteConfig;
