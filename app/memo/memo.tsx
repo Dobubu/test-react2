@@ -1,11 +1,12 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
+
 import { createTodos } from "./utils.js";
 import TodoList from "./TodoList";
 
 const todos = createTodos();
 
 export function Memo() {
-  console.log("Memo component rendered");
+  console.log("Memo component rendered ---");
 
   const [tab, setTab] = useState("all");
   const [isDark, setIsDark] = useState(false);

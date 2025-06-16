@@ -1,5 +1,7 @@
 import { useMemo } from "react";
+
 import { filterTodos } from "./utils.js";
+import List from "./List.js";
 
 export default function TodoList({ todos, theme, tab }) {
   console.log("TodoList component rendered");
@@ -14,13 +16,7 @@ export default function TodoList({ todos, theme, tab }) {
         </b>
       </p>
       <p className="bg-blue-300">total: {visibleTodos.length}</p>
-      <ul className="max-h-[500px] overflow-scroll">
-        {visibleTodos.map((todo) => (
-          <li key={todo.id}>
-            {todo.completed ? <s>{todo.text}</s> : todo.text}
-          </li>
-        ))}
-      </ul>
+      <List items={visibleTodos} />
     </div>
   );
 }
