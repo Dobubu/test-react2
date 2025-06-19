@@ -1,4 +1,5 @@
 import Index from "./Todo/index";
+import LoopWithMemo from "./Loop";
 
 export function Memo() {
   console.log("Memo component rendered ---");
@@ -6,6 +7,8 @@ export function Memo() {
   return (
     <>
       <Index />
+      <br />
+      <LoopWithMemo />
     </>
   );
 }
