@@ -8,4 +8,5 @@ export default [
   route("ref", "routes/ref.tsx"),
   route("compareHook", "routes/compareHook.tsx"),
   route("memo", "routes/memo.tsx"),
+  route("callback", "routes/callback.tsx"),
 ] satisfies RouteConfig;
