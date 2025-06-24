@@ -3,6 +3,8 @@ import { useShallow } from "zustand/react/shallow";
 import useBearsStore from "../store/useBearsStore";
 import useCounterStore from "../store/useCounterStore";
 
+import Todo from "./Todo";
+
 function BearCounter() {
   console.log("BearCounter component");
 
@@ -81,6 +83,11 @@ export function Counter() {
         <h2>Bears:</h2>
         <BearCounter />
         <BearControls />
+      </div>
+
+      <div className="border border-green-300 p-4">
+        <h2>Todo:</h2>
+        <Todo />
       </div>
     </div>
   );
