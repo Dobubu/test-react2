@@ -2,6 +2,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import useBearsStore from "../store/useBearsStore";
 import useCounterStore from "../store/useCounterStore";
+import useCounterPersistStore from "../store/useCounterPersistStore";
 
 import Todo from "./Todo";
 
@@ -68,6 +69,20 @@ function DefaultCount3() {
   );
 }
 
+function PersistCount() {
+  console.log("PersistCount component");
+
+  const { increase, count } = useCounterPersistStore(
+    useShallow((store) => ({ increase: store.increase, count: store.count }))
+  );
+
+  return (
+    <button onClick={increase} className="bg-purple-400">
+      增加 persist, {count}
+    </button>
+  );
+}
+
 export function Counter() {
   console.log("Counter component rendered ----");
 
@@ -88,6 +103,11 @@ export function Counter() {
       <div className="border border-green-300 p-4">
         <h2>Todo:</h2>
         <Todo />
+      </div>
+
+      <div className="border border-yellow-300 p-4">
+        <h2>counter persist store:</h2>
+        <PersistCount />
       </div>
     </div>
   );
