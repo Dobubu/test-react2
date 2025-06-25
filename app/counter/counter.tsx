@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 import useBearsStore from "../store/useBearsStore";
 import useCounterStore from "../store/useCounterStore";
 import useCounterPersistStore from "../store/useCounterPersistStore";
+import useCounterSubscribeStore from "../store/useCounterSubscribeStore";
 
 import Todo from "./Todo";
 
@@ -83,6 +85,35 @@ function PersistCount() {
   );
 }
 
+function SubscribeCount() {
+  console.log("SubscribeCount component");
+
+  const { increase, count } = useCounterSubscribeStore(
+    useShallow((store) => ({ increase: store.increase, count: store.count }))
+  );
+
+  // 使用 useEffect 確保訂閱只註冊一次
+  useEffect(() => {
+    const unsubscribe = useCounterSubscribeStore.subscribe(
+      (state) => state.count,
+      (count, prevCount) => {
+        console.log("SubscribeCount count changed:", prevCount, "->", count);
+      }
+    );
+
+    // 組件卸載時取消訂閱
+    return () => {
+      unsubscribe();
+    };
+  }, []); // 空依賴數組確保只執行一次
+
+  return (
+    <button onClick={increase} className="bg-purple-400">
+      增加 Subscribe, {count}
+    </button>
+  );
+}
+
 export function Counter() {
   console.log("Counter component rendered ----");
 
@@ -108,6 +139,11 @@ export function Counter() {
       <div className="border border-yellow-300 p-4">
         <h2>counter persist store:</h2>
         <PersistCount />
+      </div>
+
+      <div className="border border-purple-300 p-4">
+        <h2>counter subscribe store:</h2>
+        <SubscribeCount />
       </div>
     </div>
   );
