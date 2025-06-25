@@ -7,6 +7,7 @@ import useCounterPersistStore from "../store/useCounterPersistStore";
 import useCounterSubscribeStore from "../store/useCounterSubscribeStore";
 
 import Todo from "./Todo";
+import Bear from "./Bear";
 
 function BearCounter() {
   console.log("BearCounter component");
@@ -144,6 +145,13 @@ export function Counter() {
       <div className="border border-purple-300 p-4">
         <h2>counter subscribe store:</h2>
         <SubscribeCount />
+      </div>
+
+      <div className="border border-gray-300 p-4">
+        <h2>Bear: 1</h2>
+        <Bear />
+        <h2>Bear: 2</h2>
+        <Bear />
       </div>
     </div>
   );
