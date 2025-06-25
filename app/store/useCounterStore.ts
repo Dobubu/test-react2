@@ -1,8 +1,10 @@
 import { create } from "zustand";
-import { devtools, combine } from "zustand/middleware";
+import { combine } from "zustand/middleware";
+
+import { myMiddlewares } from "./myMiddlewares";
 
 const useCounterStore = create(
-  devtools(
+  myMiddlewares(
     combine(
       {
         count: 0,
@@ -18,9 +20,7 @@ const useCounterStore = create(
         decrease3: () => set((state) => ({ count3: state.count3 - 1 })),
       })
     ),
-    {
-      name: "Counter Store",
-    }
+    "Counter Store"
   )
 );
 
